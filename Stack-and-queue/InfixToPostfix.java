@@ -1,51 +1,54 @@
 import java.util.Stack;
 
-public class InfixToPostfix {
-
-    public static int priority(char op){
-         if(op == '*' || op =='/')return 2;
-         if(op == '+' || op == '-') return 1;
-         return 0;
-
+public class InfixToPostfix{
+    static int priority(char op){
+        if(op == '*' || op =='/') return 2;
+        if(op == '+' || op == '-') return 1;
+        return 0;
     }
     public static void main(String[] args) {
-        String s = "(A+B)*C";
+        String s= "(A+B)*C";
+        Stack<Character>stack = new Stack<>();
         String result = "";
-        Stack<Character> stack = new Stack<>();
 
-        for(int i =0; i<s.length(); i++){
+        for(int i =0; i<s.length() ; i++){
             char ch = s.charAt(i);
-            //!operands
 
+            //!operand
             if(Character.isLetterOrDigit(ch)){
-                result = result+ch;
+                result = result + ch;
             }
-            //!for '('
-            else if(ch == '('){
+            //! '('
+
+            if(ch == '('){
                 stack.push(ch);
             }
 
-            //! for ')'
+            //! ')'
 
-            else if(ch == ')'){
-               while(stack.peek() != '('){
-                result= result+stack.pop();
+            else if(ch ==')'){
+                while(stack.peek() != '('){
+                 result= result+stack.pop();
+                }
+                stack.pop();
             }
-            stack.pop(); // remove the '('
+
+            //! operator
+
+            else {
+                while(!stack.isEmpty() && priority(stack.peek()) > priority(ch)){
+                    result = result+stack.pop();
+                }
+                stack.push(ch);
             }
-           
-           //! for operators
-           else {
-           while(!stack.isEmpty() && priority(stack.peek()) >= priority(ch)){
-                result = result + stack.pop();
-            }
-            stack.push(ch);
-           }
         }
-        // pop remaining operators
-        while(!stack.isEmpty()){
+               //!remaining operators
+        while (!stack.isEmpty()) {
             result = result+stack.pop();
         }
-        System.out.println("postfix"+result);
+
+        System.out.println(result);
+
+
     }
 }
