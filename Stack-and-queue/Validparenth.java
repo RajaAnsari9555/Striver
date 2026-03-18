@@ -19,7 +19,7 @@ public class Validparenth {
             }
         }
 
-        return stack.isEmpty();
+        return stack.isEmpty();                              
 
     }
     public static void main(String[] args) {
