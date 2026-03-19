@@ -9,7 +9,7 @@ public class FindallIndex {
         if(arr[index] == target){
             System.out.println(index);
         }
-        //! recursive call
+        //! recursive calll
         findallIndex(arr, target, index+1);
 
     }
